@@ -1,8 +1,13 @@
 from datetime import datetime
-import json
+import json, glob, random
+from pathlib import Path
+from hoverable import HoverBehavior
+from kivy.uix.image import Image
+from kivy.uix.behaviors import ButtonBehavior
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen, ScreenManager
+from kivy.core.window import Window
 
 Builder.load_file('design.kv')
 
@@ -55,11 +60,25 @@ class LoginScreenSuccess(Screen):
         self.manager.transition.direction = "right"
         self.manager.current = "login_screen"
 
-    def enlighten(self, mood):
-        pass
+    def get_quote(self, mood):
+        mood = mood.lower()
+        available_feelings = glob.glob("quotes/*txt")
+
+        available_feelings = [Path(filename).stem for filename in available_feelings]
+
+        if mood in available_feelings:
+            with open(f"quotes/{mood}.txt") as file:
+                quotes = file.readlines()
+            self.ids.quote.text = random.choice(quotes)
+        else:
+            self.ids.quote.text = "Try other feeling"
+
+class ImageButton(ButtonBehavior, HoverBehavior, Image):
+    pass
 
 class MainApp(App):
     def build(self):
+        Window.clearcolor = (46/255,81/255,95/255,1)
         return RootWidget()
 
 if __name__ == "__main__":
