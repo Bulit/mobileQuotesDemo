@@ -10,12 +10,12 @@
             TextInput:
                 id: username
                 hint_text: "Username"
-                font_size: "20sp"
+                font_size: "25sp"
             TextInput:
                 id: password
                 password: True
                 hint_text: "Password"
-                font_size: "20sp"
+                font_size: "25sp"
             RelativeLayout:
                 Button:
                     text: "Login"
@@ -53,11 +53,13 @@
             size_hint: 0.5, 0.5
             id: username
             hint_text: "Username"
+            font_size: "25sp"
         TextInput:
             size_hint: 0.5, 0.5
             id: password
             password: True
             hint_text: "Password"
+            font_size: "25sp"
         Label:
             id: incorrect_input
             text: ""
@@ -84,12 +86,13 @@
                 on_press: root.log_out()
                 source: 'logout_hover.png' if self.hovered else 'logout_nothover.png'
                 size_hint: 0.35, 0.35
-                pos_hint: {'center_x': 0.95, 'center_y': 0.8}
+                pos_hint: {'center_x': 0.85, 'center_y': 0.8}
         Label:
             text: "How do you fell?"
         TextInput:
             id: mood
             hint_text: "Thing to try: happy, sad, unloved..."
+            font_size: "25sp"
         Button:
             text: "Enlighten me"
             on_press: root.get_quote(root.ids.mood.text)
